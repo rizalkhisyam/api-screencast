@@ -22,11 +22,14 @@
     <div class="min-h-screen bg-gray-100">
         <div class="flex">
             @include('layouts.sidebar')
-
             <!-- Page Heading -->
 
             <!-- Page Content -->
             <main class="w-4/5 p-5">
+                @if($header)
+                <h1 class="font-lig mb-5 text-2xl">{{$header}}</h1>
+                @endif
+
                 {{ $slot }}
             </main>
         </div>

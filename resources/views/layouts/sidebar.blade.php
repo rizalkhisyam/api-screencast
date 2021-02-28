@@ -11,8 +11,8 @@
         <header class="font-medium px-2 text-gray-400 uppercase text-xs">
             Playlist
         </header>
-        <a href="{{route('create.playlists')}}" class="block text-gray-200 px-2 py-2">Create</a>
-        <a href="{{route('table.playlists')}}" class="block text-gray-200 px-2 py-2">Table</a>
+        <a href="{{route('playlists.create')}}" class="block text-gray-200 px-2 py-2">Create</a>
+        <a href="{{route('playlists.table')}}" class="block text-gray-200 px-2 py-2">Table</a>
     </div>
     @endif
 
