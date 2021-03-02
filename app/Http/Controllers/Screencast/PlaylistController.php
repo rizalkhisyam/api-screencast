@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PlaylistRequest;
 use App\Models\Screencast\Playlist;
+use App\Models\Screencast\Tag;
 use Illuminate\Support\Facades\Storage;
 
 class PlaylistController extends Controller
@@ -14,7 +15,8 @@ class PlaylistController extends Controller
     public function create()
     {
         return view('playlists.create', [
-            'playlist' => new Playlist()
+            'playlist' => new Playlist(),
+            'tags' => Tag::get(),
         ]);
     }
 
@@ -27,7 +29,7 @@ class PlaylistController extends Controller
     public function store(PlaylistRequest $request)
     {
 
-        Auth::user()->playlists()->create([
+        $playlist = Auth::user()->playlists()->create([
             'name' => $request->name,
             'thumbnail' => $request->file('thumbnail')->store('images/playlist'),
             'slug' => Str::slug($request->name . '-' . Str::random(6)),
@@ -35,13 +37,17 @@ class PlaylistController extends Controller
             'price' => $request->price,
         ]);
 
+        $playlist->tags()->sync(request('tags'));
+
         return back();
     }
 
     public function edit(Playlist $playlist)
     {
+        $this->authorize('update', $playlist);
         return view('playlists.edit', [
-            'playlist' => $playlist
+            'playlist' => $playlist,
+            'tags' => Tag::get(),
         ]);
     }
 
@@ -52,7 +58,7 @@ class PlaylistController extends Controller
             Storage::delete($playlist->thumbnail);
             $thumbnail = $request->file('thumbnail')->store('images/playlist');
         } else {
-            $playlist->thumbnail;
+            $thumbnail = $playlist->thumbnail;
         }
 
         $playlist->update([
@@ -62,8 +68,19 @@ class PlaylistController extends Controller
             'price' => $request->price,
         ]);
 
+        $playlist->tags()->sync(request('tags'));
+
         return redirect(
             route('playlists.table')
         );
+    }
+
+    public function destroy(Playlist $playlist)
+    {
+        Storage::delete($playlist->thumbnail);
+        $playlist->tags()->detach();
+        $playlist->delete();
+
+        return redirect(route('playlists.table'));
     }
 }

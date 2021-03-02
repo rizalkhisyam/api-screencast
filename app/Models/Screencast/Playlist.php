@@ -15,4 +15,9 @@ class Playlist extends Model
     {
         return asset('storage/' . $this->thumbnail);
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

@@ -13,7 +13,7 @@ class CreateTagPlaylistTable extends Migration
      */
     public function up()
     {
-        Schema::create('tag_playlist', function (Blueprint $table) {
+        Schema::create('playlist_tag', function (Blueprint $table) {
             $table->foreignId('playlist_id')->constrained('playlists');
             $table->foreignId('tag_id')->constrained('tags');
 
@@ -28,6 +28,6 @@ class CreateTagPlaylistTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tag_playlist');
+        Schema::dropIfExists('playlist_tag');
     }
 }

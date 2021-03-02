@@ -26,9 +26,9 @@
 
             <!-- Page Content -->
             <main class="w-4/5 p-5">
-                @if($header)
+                @isset($header)
                 <h1 class="font-lig mb-5 text-2xl">{{$header}}</h1>
-                @endif
+                @endisset
 
                 {{ $slot }}
             </main>

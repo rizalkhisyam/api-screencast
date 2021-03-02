@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('{playlist:slug}/edit', [PlaylistController::class, 'edit'])->name('playlists.edit');
         Route::put('{playlist:slug}/edit', [PlaylistController::class, 'update']);
+        Route::delete('{playlist:slug}/delete', [PlaylistController::class, 'destroy'])->name('playlists.delete');
+
 
         Route::get('table', [PlaylistController::class, 'table'])->name('playlists.table');
     });
