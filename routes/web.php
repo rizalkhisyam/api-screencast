@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Screencast\PlaylistController;
+use App\Http\Controllers\Screencast\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,13 @@ Route::middleware('auth')->group(function () {
 
         Route::get('table', [PlaylistController::class, 'table'])->name('playlists.table');
     });
+});
+
+Route::prefix('tags')->middleware('permission:create tags')->group(function () {
+    Route::get('create', [TagController::class, 'create'])->name('tags.create');
+    Route::post('create', [TagController::class, 'store']);
+
+    Route::get('table', [TagController::class, 'table'])->name('tags.table');
 });
 
 require __DIR__ . '/auth.php';

@@ -25,7 +25,7 @@
 </div>
 
 <div class="mb-6">
-    <x-label for='tags' value="tags">
+    <x-label for='tags' value="Tags">
     </x-label>
     <select multiple name="tags[]" id="tags" class="border w-1/2 mt-2 border-gray-300 border:focus-blue-500 focus:outline-none rounded-lg px-3 focus:ring focus:ring-blue-200 transition duration-200">
         @foreach($tags as $tag)

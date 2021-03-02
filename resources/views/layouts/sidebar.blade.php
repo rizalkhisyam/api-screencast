@@ -21,8 +21,8 @@
         <header class="font-medium px-2 text-gray-400 uppercase text-xs">
             Tags
         </header>
-        <a href="#" class="block text-gray-200 px-2 py-2">Create</a>
-        <a href="" class="block text-gray-200 px-2 py-2">Table</a>
+        <a href="{{route('tags.create')}}" class="block text-gray-200 px-2 py-2">Create</a>
+        <a href="{{route('tags.table')}}" class="block text-gray-200 px-2 py-2">Table</a>
     </div>
     @endif
 
