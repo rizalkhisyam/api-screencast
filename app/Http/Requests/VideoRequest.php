@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TagRequest extends FormRequest
+class VideoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class TagRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:tags,name,' . optional($this->tag)->id
+            'title' => 'required',
+            'episode' => 'required',
+            'runtime' => 'required',
+            'unique_video_id' => 'required',
         ];
     }
 }
