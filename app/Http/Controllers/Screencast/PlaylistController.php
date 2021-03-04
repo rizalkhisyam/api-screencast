@@ -15,7 +15,7 @@ class PlaylistController extends Controller
 {
     public function index()
     {
-        $playlist = Playlist::latest()->paginate(10);
+        $playlist = Playlist::with('user')->latest()->paginate(10);
         return PlaylistResource::collection($playlist);
     }
 
@@ -25,6 +25,11 @@ class PlaylistController extends Controller
             'playlist' => new Playlist(),
             'tags' => Tag::get(),
         ]);
+    }
+
+    public function show(Playlist $playlist)
+    {
+        return new PlaylistResource($playlist);
     }
 
     public function table()

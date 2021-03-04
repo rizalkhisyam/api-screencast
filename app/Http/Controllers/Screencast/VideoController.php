@@ -7,10 +7,22 @@ use App\Models\Screencast\Video;
 use App\Http\Requests\VideoRequest;
 use App\Models\Screencast\Playlist;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Screencast\VideoResource;
 use Illuminate\Auth\Middleware\Authorize;
 
 class VideoController extends Controller
 {
+    public function index(Playlist $playlist)
+    {
+        $videos = $playlist->videos()->orderBy('episode')->get();
+        return VideoResource::collection($videos);
+    }
+
+    public function show(Playlist $playlist, Video $video)
+    {
+        return new VideoResource($video);
+    }
+
     public function create(Playlist $playlist)
     {
         $this->authorize('update', $playlist);
@@ -25,7 +37,7 @@ class VideoController extends Controller
     public function store(VideoRequest $request, Playlist $playlist)
     {
         $attr = $request->all();
-        $attr['slug'] = Str::slug($request->title);
+        $attr['slug'] = Str::slug($request->title . '-' . Str::random(6));
         $attr['intro'] = $request->intro ? true : false;
 
         $playlist->videos()->create($attr);

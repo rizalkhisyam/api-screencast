@@ -12,6 +12,7 @@ class Playlist extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'thumbnail', 'slug', 'description', 'price'];
+    protected $withCount = ['videos'];
 
     public function getPictureAttribute()
     {

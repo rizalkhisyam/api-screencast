@@ -46,6 +46,9 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        if ($request->expectsJson()) {
+            return response(['message' => 'You are registered'], 200);
+        }
         return redirect(RouteServiceProvider::HOME);
     }
 }

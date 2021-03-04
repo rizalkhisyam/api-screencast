@@ -24,7 +24,8 @@ class PlaylistResource extends JsonResource
             ],
             'picture' => $this->picture,
             'description' => $this->description,
-            'user' => $this->user
+            'user' => $this->user,
+            'videos' => $this->videos_count
         ];
     }
 }
