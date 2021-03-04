@@ -20,9 +20,9 @@
             <x-td>{{$playlists->count() * ($playlists->currentPage()-1) + $loop->iteration }}</x-td>
             <x-td>
                 <div>
-                    <div>
+                    <a class="block text-blue-500 hover:text-blue-600 hover:underline" href="{{route('videos.table', $item->slug)}}">
                         {{$item->name}}
-                    </div>
+                    </a>
                     @foreach($item->tags as $tag)
                     <span class="mr-1 text-xs text-gray-500">{{$tag->name}}</span>
                     @endforeach

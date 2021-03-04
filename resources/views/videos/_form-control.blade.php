@@ -33,4 +33,11 @@
     </div>
 </div>
 
+<div class="mb-6">
+    <label for="intro" class="flex items-center">
+        <input type="checkbox" {{$video->intro ? 'checked' : ''}} name="intro" id="intro" class="mr-2 focus:outline-none focus:ring-transparent rounded text-blue-500 border-gray-300 ">
+        <span class="select-none font-medium text-sm uppercase">Intro</span>
+    </label>
+</div>
+
 <x-button type="submit">{{$submit}}</x-button>
