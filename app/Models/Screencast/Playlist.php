@@ -33,4 +33,9 @@ class Playlist extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function usersPurchased()
+    {
+        return $this->belongsToMany(User::class, 'purchased_playlist', 'playlist_id', 'user_id');
+    }
 }
