@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Order\Cart;
 use App\Models\Screencast\Playlist;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -56,6 +57,26 @@ class User extends Authenticatable
 
     public function purchases()
     {
-        return $this->belongsToMany(Playlist::class, 'purchased_playlist', 'user_id', 'playlist_id');
+        return $this->belongsToMany(Playlist::class, 'purchased_playlist', 'user_id', 'playlist_id')->withTimestamps();
+    }
+
+    public function buy(Playlist $playlist)
+    {
+        return $this->purchases()->save($playlist);
+    }
+
+    public function hasBought(Playlist $playlist)
+    {
+        return (bool) $this->purchases()->find($playlist->id);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function alreadyInCart(Playlist $playlist)
+    {
+        return (bool) $this->carts()->where('playlist_id', $playlist->id)->first();
     }
 }
